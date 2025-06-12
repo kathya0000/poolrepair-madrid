@@ -1,0 +1,48 @@
+/* Reset y variables */
+
+/* 
+  CSS Principal para Sitio Web de Piscinas Madrid
+  Importa todos los módulos CSS organizados
+*/
+/* Importar módulos CSS desde la carpeta css/ */
+@import url('css/base.css');          /* Variables CSS y reset básico */
+@import url('css/components.css');    /* Botones, tarjetas, componentes reutilizables */
+@import url('css/navigation.css');    /* Navegación, menús, breadcrumbs, botones flotantes */
+@import url('css/layout.css');        /* Hero sections, layout grids, footer, secciones principales */
+@import url('css/forms.css');         /* Formularios, campos, validaciones, notificaciones */
+@import url('css/services.css');      /* Estilos específicos para páginas de servicios */
+@import url('css/contact.css');       /* Estilos específicos para páginas de contacto */
+@import url('css/sidebar.css');       /* Sidebar para páginas de servicios individuales */
+@import url('css/utilities.css');     /* Utilidades, animaciones, helpers */
+/* 
+  INSTRUCCIONES DE USO:
+  
+  1. Crea una carpeta llamada "css" en tu sitio web
+  2. Mueve todos los archivos css-*.css a la carpeta css/ 
+     (renómbralos quitando el prefijo "css-"):
+     - css-base.css → css/base.css
+     - css-components.css → css/components.css
+     - css-navigation.css → css/navigation.css
+     - etc.
+  
+  3. En todas tus páginas HTML usa solo:
+     <link rel="stylesheet" href="styles.css">
+  
+  4. Este archivo styles.css cargará automáticamente todos los módulos
+*/
+/* 
+  Organización de archivos CSS:
+  
+  css-base.css       → Variables, reset, tipografía básica
+  css-components.css → Botones, tarjetas, componentes reutilizables
+  css-navigation.css → Navegación, menús, breadcrumbs
+  css-layout.css     → Hero sections, layout grids, footer
+  css-forms.css      → Formularios, campos, validaciones
+  css-services.css   → Estilos específicos de servicios
+  css-contact.css    → Estilos específicos de contacto
+  css-sidebar.css    → Sidebar para páginas individuales
+  css-utilities.css  → Utilidades, animaciones, helpers
+*/
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}

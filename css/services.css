@@ -1,0 +1,339 @@
+/* Servicios - Página principal */
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.service-card {
+    background-color: var(--gray-50);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.service-card img {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+}
+
+.service-content {
+    padding: 1.5rem;
+}
+
+.service-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.service-content h3 i {
+    color: var(--pool-blue);
+}
+
+.service-content p {
+    color: var(--gray-600);
+    margin-bottom: 1rem;
+}
+
+/* Servicios - Página detallada */
+.services-list {
+    margin-bottom: 4rem;
+}
+
+.service-detailed-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .service-detailed-card {
+        grid-template-columns: 1fr 2fr;
+    }
+}
+
+.service-detailed-card:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+.service-image img {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+}
+
+@media (min-width: 768px) {
+    .service-image img {
+        height: 8rem;
+    }
+}
+
+.service-details {
+    padding: 1.5rem;
+}
+
+.service-details h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--gray-800);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.service-details h3 i {
+    color: var(--pool-blue);
+}
+
+.service-details p {
+    color: var(--gray-600);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.service-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-direction: column;
+}
+
+@media (min-width: 640px) {
+    .service-actions {
+        flex-direction: row;
+    }
+}
+
+/* Features destacadas */
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.feature {
+    text-align: center;
+}
+
+.feature-icon {
+    background-color: var(--white);
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.feature-icon i {
+    color: var(--pool-blue);
+    font-size: 2rem;
+}
+
+.feature h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.feature p {
+    color: #bfdbfe;
+}
+
+.features-section {
+    background-color: var(--gray-50);
+    padding: 3rem 0;
+    border-radius: 0.75rem;
+    margin-bottom: 4rem;
+}
+
+.features-section h2 {
+    text-align: center;
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: var(--gray-800);
+    margin-bottom: 2rem;
+}
+
+.feature-highlight {
+    text-align: center;
+}
+
+.feature-highlight .feature-icon {
+    background-color: var(--pool-blue);
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.feature-highlight .feature-icon.accent {
+    background-color: var(--pool-accent);
+}
+
+.feature-highlight .feature-icon.gray {
+    background-color: var(--gray-600);
+}
+
+.feature-highlight .feature-icon i {
+    color: var(--white);
+    font-size: 1.5rem;
+}
+
+.feature-highlight h3 {
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+}
+
+.feature-highlight p {
+    color: var(--gray-600);
+}
+
+/* Servicios individuales */
+.service-main {
+    max-width: none;
+}
+
+.service-main h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--gray-800);
+    margin-bottom: 1.5rem;
+}
+
+.service-main h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin: 2rem 0 1rem;
+}
+
+.service-main h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin: 1.5rem 0 0.75rem;
+}
+
+.service-main p {
+    color: var(--gray-700);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.service-main ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.service-main ul li {
+    color: var(--gray-700);
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.service-features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 3rem 0;
+}
+
+@media (min-width: 768px) {
+    .service-features {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.service-feature-card {
+    text-align: center;
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.service-feature-card i {
+    font-size: 3rem;
+    color: var(--pool-blue);
+    margin-bottom: 1rem;
+}
+
+.service-feature-card h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.service-feature-card p {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+}
+
+/* Proceso de trabajo */
+.process-steps {
+    margin: 3rem 0;
+}
+
+.process-step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.step-number {
+    background-color: var(--pool-blue);
+    color: var(--white);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.step-text {
+    color: var(--gray-700);
+}
