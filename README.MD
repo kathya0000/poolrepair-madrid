@@ -226,4 +226,5 @@ Este código es para uso comercial. Puedes modificarlo y adaptarlo según tus ne
 - No requiere base de datos
 - Compatible con hosting compartido
 - Formularios funcionan via WhatsApp/Email
-- CSS modular para fácil mantenimiento
+- CSS modular para fácil mantenimiento#   p o o l r e p a i r - m a d r i d  
+ 
