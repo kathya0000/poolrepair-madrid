@@ -1,16 +1,19 @@
 # Configuración para URLs limpias - Reparaciones piscina Madrid
-# Quita .html de TODAS las URLs
-
 RewriteEngine On
 
-# Remover .html de TODAS las URLs (incluye index.html, servicios.html, contacto.html, etc.)
+# Redireccionar index.html a la raíz
+RewriteCond %{THE_REQUEST} /index\.html[\s?] [NC]
+RewriteRule ^index\.html$ / [R=301,L]
+
+# Remover .html de otras páginas
 RewriteCond %{THE_REQUEST} /([^.]+)\.html[\s?] [NC]
+RewriteCond %1 !^index$ [NC]
 RewriteRule ^ /%1 [R=301,L]
 
-# Configurar index.html como archivo por defecto
+# Archivo por defecto
 DirectoryIndex index.html
 
-# Redireccionar URLs sin extensión a .html
+# Permitir URLs sin .html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([^.]+)$ $1.html [L]
