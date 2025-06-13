@@ -58,6 +58,7 @@
 
 /* Page Header */
 .page-header {
+    position: relative;
     background: linear-gradient(135deg, var(--pool-blue), var(--pool-dark));
     color: var(--white);
     padding: 4rem 0;
