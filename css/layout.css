@@ -1,7 +1,7 @@
 /* Hero Sections */
 .hero {
     height: 24rem;
-    background-image:url('img/ReparacionPiscinaMadrid.jpg');
+    background-image:url('../img/ReparacionPiscinaMadrid.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
