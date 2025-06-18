@@ -59,6 +59,7 @@
         }
     }
     
+    // Inicializar cuando el DOM esté listo
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             initContactForm();
