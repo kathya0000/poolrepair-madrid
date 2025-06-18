@@ -1,5 +1,6 @@
-// Navegación móvil
+// Navegación móvil y formulario
 document.addEventListener('DOMContentLoaded', function() {
+    // Navegación móvil
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
     
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Cerrar menú al hacer clic en un enlace
     const navLinks = document.querySelectorAll('.nav-link');
-      if (navLinks.length > 0) {
+    if (navLinks.length > 0) {
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (navMenu) navMenu.classList.remove('active');
@@ -80,7 +81,7 @@ async function handleFormSubmit(e) {
     const telefono = formData.get('telefono');
     
     if (!nombre || !telefono) {
-         alert('Por favor, completa los campos obligatorios (Nombre y Teléfono).');
+        alert('Por favor, completa los campos obligatorios (Nombre y Teléfono).');
         return;
     }
 
@@ -115,8 +116,10 @@ async function handleFormSubmit(e) {
         showNotification('Error al enviar la solicitud. Por favor, inténtalo de nuevo.', 'error');
     } finally {
         // Restaurar botón
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Solicitud';
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Solicitud';
+        }
     }
 }
 
@@ -124,19 +127,17 @@ async function handleFormSubmit(e) {
 function sendFormByEmail(data) {
     return new Promise((resolve) => {
         const subject = encodeURIComponent('Nueva consulta desde web de piscinas');
-        const body = encodeURIComponent(`
-Nombre: ${data.nombre}
+        const body = encodeURIComponent(`Nombre: ${data.nombre}
 Teléfono: ${data.telefono}
 Email: ${data.email || 'No proporcionado'}
 Servicio de interés: ${data.servicio || 'No especificado'}
 Mensaje: ${data.mensaje || 'Sin mensaje adicional'}
 
 ---
-Enviado desde reparacionpiscinasmadrid.es
-        `);
+Enviado desde reparacionpiscinasmadrid.es`);
         
         const mailtoLink = `mailto:presupuestoonlinepiscinas@gmail.com?subject=${subject}&body=${body}`;
-        window.location.href = mailtoLink;
+        window.open(mailtoLink, '_blank');
         
         // Simular éxito después de abrir el cliente de email
         setTimeout(() => {
@@ -205,19 +206,25 @@ function showNotification(message, type = 'info') {
     
     // Cerrar notificación
     const closeBtn = notification.querySelector('.notification-close');
-    closeBtn.addEventListener('click', () => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    });
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        });
+    }
     
     // Auto cerrar después de 5 segundos
     setTimeout(() => {
         if (document.body.contains(notification)) {
             notification.style.transform = 'translateX(100%)';
             setTimeout(() => {
-                document.body.removeChild(notification);
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
             }, 300);
         }
     }, 5000);
@@ -225,7 +232,6 @@ function showNotification(message, type = 'info') {
 
 // Funciones de utilidad
 function formatPhoneNumber(phone) {
-    // Limpiar y formatear número de teléfono
     return phone.replace(/\D/g, '').replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3');
 }
 
@@ -237,23 +243,24 @@ function validateEmail(email) {
 // Lazy loading para imágenes
 function setupLazyLoading() {
     const images = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
+    if (images.length > 0) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
         });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
+        
+        images.forEach(img => imageObserver.observe(img));
+    }
 }
 
 // Funciones de SEO y Analytics
 function trackEvent(action, category = 'General', label = '') {
-    // En producción, integrar con Google Analytics
     console.log('Event tracked:', { action, category, label });
 }
 
@@ -273,7 +280,6 @@ document.addEventListener('click', function(e) {
 
 // Optimización de rendimiento
 function optimizePerformance() {
-    // Precargar recursos críticos
     const criticalImages = [
         'https://images.unsplash.com/photo-1571902943202-507ec2618e8f',
         'https://images.unsplash.com/photo-1544551763-46a013bb70d5'
@@ -293,7 +299,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setupLazyLoading();
     optimizePerformance();
     
-    // Configurar Service Worker para PWA (opcional)
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js').catch(console.error);
     }
@@ -301,7 +306,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Funciones para páginas específicas
 function initServicePage() {
-    // Código específico para páginas de servicios
     const serviceCards = document.querySelectorAll('.service-detail-card');
     serviceCards.forEach(card => {
         card.addEventListener('click', function() {
@@ -312,7 +316,6 @@ function initServicePage() {
 }
 
 function initContactPage() {
-    // Código específico para página de contacto
     const emergencyButtons = document.querySelectorAll('.emergency-btn');
     emergencyButtons.forEach(btn => {
         btn.addEventListener('click', function() {
