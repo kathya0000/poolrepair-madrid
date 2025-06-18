@@ -5,7 +5,7 @@
         const form = document.getElementById('contactForm');
         if (!form) return;
         
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const formData = new FormData(form);
@@ -17,21 +17,34 @@
                 return;
             }
             
-            const subject = 'Nueva consulta desde web de piscinas';
-            const body = `Nombre: ${nombre}
-Teléfono: ${telefono}
-Email: ${formData.get('email') || 'No proporcionado'}
-Servicio: ${formData.get('servicio') || 'No especificado'}
-Mensaje: ${formData.get('mensaje') || 'Sin mensaje adicional'}
-
----
-Enviado desde reparacionpiscinasmadrid.es`;
+            // Mostrar estado de carga
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
             
-            const mailtoLink = `mailto:presupuestoonlinepiscinas@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            window.open(mailtoLink, '_blank');
-            
-            alert('Se abrirá tu cliente de email con los datos del formulario');
-            form.reset();
+            try {
+                const response = await fetch('send-email.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('¡Mensaje enviado correctamente! Te contactaremos pronto.');
+                    form.reset();
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+            } finally {
+                // Restaurar botón
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
         });
     }
     
