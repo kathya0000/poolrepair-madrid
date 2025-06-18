@@ -11,11 +11,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Cerrar menú al hacer clic en un enlace
     const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
+      if (navLinks.length > 0) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu) navMenu.classList.remove('active');
+            });
         });
-    });
+    }
 
     // Formulario de contacto
     const contactForm = document.getElementById('contactForm');
@@ -78,13 +80,15 @@ async function handleFormSubmit(e) {
     const telefono = formData.get('telefono');
     
     if (!nombre || !telefono) {
-        showNotification('Por favor, completa los campos obligatorios.', 'error');
+         alert('Por favor, completa los campos obligatorios (Nombre y Teléfono).');
         return;
     }
 
     // Mostrar estado de carga
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+    }
     
     try {
         // Preparar datos para envío
