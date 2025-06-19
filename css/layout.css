@@ -92,13 +92,16 @@
     position: relative;
     display: flex;
     align-items: flex-start;
-    padding-top: 2rem;
+    padding-top: 4rem;
 }
 
 .service-hero .hero-overlay {
     position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .service-hero-content {
