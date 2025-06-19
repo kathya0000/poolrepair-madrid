@@ -86,12 +86,13 @@
 
 /* Service Hero */
 .service-hero {
-    height: 20rem;
+    height: 30rem;
     background-size: cover;
     background-position: center;
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 2rem;
 }
 
 .service-hero .hero-overlay {
