@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://reparacionpiscinasmadrid.es/sitemap.xml
