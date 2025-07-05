@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test SEO JavaScript</title>
+</head>
+<body>
+    <h1>Test de SEO JavaScript</h1>
+    <p>Abre la consola del navegador para ver los datos estructurados generados.</p>
+    
+    <script src="js/seo-data.js"></script>
+    <script>
+        // Test function to verify SEO data is working
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('SEO Data loaded successfully');
+            console.log('Available functions:', Object.keys(window.SEOData));
+            
+            // Test home page data generation
+            const homeData = window.SEOData.generateHomePageStructuredData();
+            console.log('Home page structured data:', homeData);
+            
+            // Test service page data generation
+            const serviceData = window.SEOData.generateServicePageStructuredData(
+                'Test Service',
+                'Test service description'
+            );
+            console.log('Service page structured data:', serviceData);
+            
+            // Test breadcrumb data generation
+            const breadcrumbData = window.SEOData.generateBreadcrumbData(
+                'test-page.html',
+                'Test Page'
+            );
+            console.log('Breadcrumb data:', breadcrumbData);
+            
+            // Check if structured data scripts were injected
+            const scriptTags = document.head.querySelectorAll('script[type="application/ld+json"]');
+            console.log(`Found ${scriptTags.length} structured data scripts`);
+            
+            scriptTags.forEach((script, index) => {
+                console.log(`Script ${index + 1}:`, JSON.parse(script.textContent));
+            });
+        });
+    </script>
+</body>
+</html>
