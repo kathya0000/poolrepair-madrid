@@ -1,6 +1,6 @@
 /**
  * SEO Data Management - Structured Data for Search Engines
- * Manages JSON-LD structured data for all pages
+ * Manages JSON-LD structured data for all pages (Optimized for Clean URLs)
  */
 
 // Business information configuration
@@ -12,8 +12,10 @@ const BUSINESS_CONFIG = {
     email: "presupuestoonlinepiscinas@gmail.com",
     address: {
         "@type": "PostalAddress",
+        streetAddress: "Calle Ejemplo, 123", // AÑADIDO: Dirección completa
         addressLocality: "Madrid",
         addressRegion: "Comunidad de Madrid",
+        postalCode: "28001", // AÑADIDO: Código postal
         addressCountry: "ES"
     },
     geo: {
@@ -26,6 +28,8 @@ const BUSINESS_CONFIG = {
         "Sa 09:00-18:00",
         "Su 00:00-23:59"
     ],
+    priceRange: "$$", // AÑADIDO: Rango de precios
+    image: "https://reparacionpiscinasmadrid.es/img/logo.jpg", // AÑADIDO: Imagen del negocio
     serviceArea: {
         "@type": "GeoCircle",
         geoMidpoint: {
@@ -37,37 +41,53 @@ const BUSINESS_CONFIG = {
     }
 };
 
-// Services catalog configuration
+// Services catalog configuration (ACTUALIZADO: URLs limpias)
 const SERVICES_CATALOG = {
-    "gresite": {
+    "servicio-gresite": {
         name: "Instalación y Reparación de Gresite",
         description: "Instalación profesional de gresite para piscinas y reparación de azulejos dañados",
-        url: "servicio-gresite.html"
+        url: "servicio-gresite"
     },
-    "impermeabilizacion": {
+    "servicio-impermeabilizacion": {
         name: "Impermeabilización de Piscinas",
         description: "Sellado y impermeabilización profesional para evitar filtraciones",
-        url: "servicio-impermeabilizacion.html"
+        url: "servicio-impermeabilizacion"
     },
-    "fugas": {
+    "servicio-fugas": {
         name: "Reparación de Fugas",
         description: "Detección y reparación de fugas en piscinas con tecnología avanzada",
-        url: "servicio-fugas.html"
+        url: "servicio-fugas"
     },
-    "recuperacion": {
+    "servicio-recuperacion-agua": {
         name: "Recuperación de Agua Verde",
         description: "Tratamiento profesional para recuperar agua verdes en aguas cristalina en piscinas",
-        url: "servicio-recuperacion-agua.html"
+        url: "servicio-recuperacion-agua"
     },
-    "rehabilitacion": {
+    "servicio-rehabilitacion": {
         name: "Rehabilitación de Piscinas",
         description: "Renovación completa de piscinas antiguas o dañadas",
-        url: "servicio-rehabilitacion.html"
+        url: "servicio-rehabilitacion"
     },
-    "subacuatica": {
+    "servicio-subacuatica": {
         name: "Reparación Subacuática",
         description: "Reparaciones especializadas bajo el agua sin vaciar la piscina",
-        url: "servicio-subacuatica.html"
+        url: "servicio-subacuatica"
+    }
+};
+
+// Páginas adicionales
+const OTHER_PAGES = {
+    "servicios": {
+        name: "Nuestros Servicios",
+        description: "Todos nuestros servicios de reparación y mantenimiento de piscinas en Madrid"
+    },
+    "contacto": {
+        name: "Contacto",
+        description: "Solicite presupuesto para reparación de piscinas en Madrid"
+    },
+    "politica-cookies": {
+        name: "Política de Cookies",
+        description: "Política de cookies de Reparación Piscinas Madrid"
     }
 };
 
@@ -75,7 +95,7 @@ const SERVICES_CATALOG = {
  * Generate JSON-LD structured data for home page
  */
 function generateHomePageStructuredData() {
-    const structuredData = {
+    return {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         name: BUSINESS_CONFIG.name,
@@ -87,6 +107,8 @@ function generateHomePageStructuredData() {
         address: BUSINESS_CONFIG.address,
         geo: BUSINESS_CONFIG.geo,
         openingHours: BUSINESS_CONFIG.openingHours,
+        priceRange: BUSINESS_CONFIG.priceRange,
+        image: BUSINESS_CONFIG.image,
         serviceArea: BUSINESS_CONFIG.serviceArea,
         hasOfferCatalog: {
             "@type": "OfferCatalog",
@@ -96,39 +118,58 @@ function generateHomePageStructuredData() {
                 itemOffered: {
                     "@type": "Service",
                     name: service.name,
-                    description: service.description
+                    description: service.description,
+                    url: `${BUSINESS_CONFIG.url}/${service.url}`
                 }
             }))
         }
     };
-
-    return structuredData;
 }
 
 /**
  * Generate JSON-LD structured data for service pages
  */
-function generateServicePageStructuredData(serviceName, serviceDescription) {
-    const structuredData = {
+function generateServicePageStructuredData(serviceName, serviceDescription, serviceUrl) {
+    return {
         "@context": "https://schema.org",
         "@type": "Service",
         name: serviceName,
         description: serviceDescription,
+        url: `${BUSINESS_CONFIG.url}/${serviceUrl}`,
         provider: {
             "@type": "LocalBusiness",
             name: BUSINESS_CONFIG.name,
             telephone: BUSINESS_CONFIG.telephone,
             email: BUSINESS_CONFIG.email,
             address: BUSINESS_CONFIG.address,
-            geo: BUSINESS_CONFIG.geo
+            geo: BUSINESS_CONFIG.geo,
+            image: BUSINESS_CONFIG.image
         },
         areaServed: {
             "@type": "Place",
             name: "Madrid y Comunidad de Madrid"
+        },
+        offers: {
+            "@type": "Offer",
+            priceRange: BUSINESS_CONFIG.priceRange
         }
     };
+}
 
-    return structuredData;
+/**
+ * Generate JSON-LD for informational pages
+ */
+function generateInfoPageStructuredData(pageName, pageDescription) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: pageName,
+        description: pageDescription,
+        publisher: {
+            "@type": "LocalBusiness",
+            name: BUSINESS_CONFIG.name
+        }
+    };
 }
 
 /**
@@ -141,19 +182,23 @@ function generateBreadcrumbData(currentPage, currentTitle) {
             position: 1,
             name: "Inicio",
             item: BUSINESS_CONFIG.url
-        },
-        {
-            "@type": "ListItem",
-            position: 2,
-            name: "Servicios",
-            item: `${BUSINESS_CONFIG.url}/servicios.html`
         }
     ];
 
     if (currentPage && currentTitle) {
+        // Agregar página de servicios si es una página de servicio
+        if (Object.keys(SERVICES_CATALOG).includes(currentPage)) {
+            breadcrumbs.push({
+                "@type": "ListItem",
+                position: 2,
+                name: "Servicios",
+                item: `${BUSINESS_CONFIG.url}/servicios`
+            });
+        }
+        
         breadcrumbs.push({
             "@type": "ListItem",
-            position: 3,
+            position: breadcrumbs.length + 1,
             name: currentTitle,
             item: `${BUSINESS_CONFIG.url}/${currentPage}`
         });
@@ -180,45 +225,73 @@ function insertStructuredData(data) {
  * Initialize SEO data based on current page
  */
 function initializeSEOData() {
-    const currentPage = window.location.pathname.split('/').pop();
+    const pathParts = window.location.pathname.split('/').filter(part => part);
+    const currentPage = pathParts[pathParts.length - 1] || 'index';
     
     // Home page
-    if (currentPage === 'index.html' || currentPage === '') {
+    if (currentPage === 'index' || currentPage === '') {
         const homeData = generateHomePageStructuredData();
         insertStructuredData(homeData);
         return;
     }
 
     // Service pages
-    const serviceKey = Object.keys(SERVICES_CATALOG).find(key => 
-        currentPage.includes(key)
-    );
-
-    if (serviceKey) {
-        const service = SERVICES_CATALOG[serviceKey];
+    if (SERVICES_CATALOG[currentPage]) {
+        const service = SERVICES_CATALOG[currentPage];
         const serviceData = generateServicePageStructuredData(
             service.name, 
-            service.description
+            service.description,
+            service.url
         );
         insertStructuredData(serviceData);
 
         // Add breadcrumbs for service pages
         const breadcrumbData = generateBreadcrumbData(currentPage, service.name);
         insertStructuredData(breadcrumbData);
+        return;
+    }
+
+    // Informational pages
+    if (OTHER_PAGES[currentPage]) {
+        const page = OTHER_PAGES[currentPage];
+        const pageData = generateInfoPageStructuredData(
+            page.name,
+            page.description
+        );
+        insertStructuredData(pageData);
+        
+        // Add breadcrumbs for informational pages
+        const breadcrumbData = generateBreadcrumbData(currentPage, page.name);
+        insertStructuredData(breadcrumbData);
+        return;
     }
 }
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeSEOData();
+    
+    // Agregar canonical y hreflang dinámicamente
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = window.location.href.split('?')[0];
+    document.head.appendChild(canonicalLink);
+    
+    const hreflangLink = document.createElement('link');
+    hreflangLink.rel = 'alternate';
+    hreflangLink.hreflang = 'es-ES';
+    hreflangLink.href = window.location.href.split('?')[0];
+    document.head.appendChild(hreflangLink);
 });
 
 // Export for manual usage if needed
 window.SEOData = {
     generateHomePageStructuredData,
     generateServicePageStructuredData,
+    generateInfoPageStructuredData,
     generateBreadcrumbData,
     insertStructuredData,
     BUSINESS_CONFIG,
-    SERVICES_CATALOG
+    SERVICES_CATALOG,
+    OTHER_PAGES
 };
