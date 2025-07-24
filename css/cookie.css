@@ -2,18 +2,19 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #333;
+  background-color: #2e2e2e;
   color: #fff;
-  padding: 16px;
+  padding: 20px;
   width: 280px;
   border-radius: 10px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
   z-index: 9999;
   font-size: 14px;
+  text-align: left;
 }
 
 .cookie-banner p {
-  margin: 0;
+  margin: 0 0 10px 0;
   line-height: 1.5;
 }
 
@@ -22,14 +23,37 @@
   text-decoration: underline;
 }
 
-.cookie-banner button {
-  margin-top: 12px;
-  padding: 8px 14px;
-  background-color: #00c896;
-  border: none;
-  color: white;
-  border-radius: 5px;
+.cookie-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cookie-buttons button {
+  padding: 8px 12px;
   font-size: 14px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
+#accept-cookies {
+  background-color: #00c896;
+  color: white;
+}
+
+#reject-cookies {
+  background-color: #c43b3b;
+  color: white;
+}
+
+.close-banner {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+}
