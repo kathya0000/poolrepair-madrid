@@ -1,7 +1,7 @@
 .cookie-banner {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  left: 20px;
   background-color: #2e2e2e;
   color: #fff;
   padding: 20px;
