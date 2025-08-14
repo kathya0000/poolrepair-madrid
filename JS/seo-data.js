@@ -8,14 +8,14 @@ const BUSINESS_CONFIG = {
     name: "Piscinas Madrid Reparación",
     alternateName: "Reparación de Piscinas Madrid",
     url: "https://reparacionpiscinasmadrid.es",
-    telephone: "+34600123456",
+    telephone: "+34685155684",
     email: "presupuestoonlinepiscinas@gmail.com",
     address: {
         "@type": "PostalAddress",
-        streetAddress: "Calle Ejemplo, 123", // AÑADIDO: Dirección completa
+        streetAddress: "c/ Los Apeaderos 34", // AÑADIDO: Dirección completa
         addressLocality: "Madrid",
         addressRegion: "Comunidad de Madrid",
-        postalCode: "28001", // AÑADIDO: Código postal
+        postalCode: "28290", // AÑADIDO: Código postal
         addressCountry: "ES"
     },
     geo: {
@@ -226,7 +226,9 @@ function insertStructuredData(data) {
  */
 function initializeSEOData() {
     const pathParts = window.location.pathname.split('/').filter(part => part);
-    const currentPage = pathParts[pathParts.length - 1] || 'index';
+    // Extraer la última parte de la URL y eliminar la extensión .html si existe
+    const currentPageRaw = pathParts[pathParts.length - 1] || 'index';
+    const currentPage = currentPageRaw.replace(/\.html$/, '');
     
     // Home page
     if (currentPage === 'index' || currentPage === '') {
